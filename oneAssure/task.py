@@ -6,6 +6,10 @@ def send_notification_email(meeting_id):
     from .models import Meeting
 
     meeting = Meeting.objects.get(id=meeting_id)
+
+    if meeting.start_time < meeting.user_id.dnd_start_time or meeting.start_time > meeting.user_id.dnd_end_time:
+        return
+
     send_mail(
         'Meeting Notification',
         f'Reminder: Your meeting "{meeting.title}" is scheduled at {meeting.start_time}.',

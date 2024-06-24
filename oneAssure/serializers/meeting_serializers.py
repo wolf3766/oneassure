@@ -25,7 +25,6 @@ class MeetingSerializer(serializers.ModelSerializer):
         return value
     
     def validate(self, data):
-        breakpoint()
         start_time = data.get('start_time')
         end_time = data.get('end_time')
         

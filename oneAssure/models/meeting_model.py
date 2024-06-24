@@ -21,7 +21,6 @@ class Meeting(DirtyFieldsMixin,models.Model):
 @receiver(post_save, sender=Meeting)
 def schedule_notification(sender, instance, created, **kwargs):
     from ..task import send_notification_email
-    breakpoint()
     if created or 'notification_interval' in instance.get_dirty_fields():
         # Schedule the task to run at the specified notification interval
         send_notification_email.apply_async((instance.id,), eta=instance.notification_interval)
